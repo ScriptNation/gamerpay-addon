@@ -1,0 +1,32 @@
+{
+  "name": "GamerPay addon",
+  "description": "Auto pricing",
+  "version": "0.1",
+  "author": "TG",
+  "manifest_version": 3,
+  "icons": {
+    "16": "assets/ico/logo_dark.png",
+    "32": "assets/ico/logo_dark.png",
+    "48": "assets/ico/logo_dark.png",
+    "128": "assets/ico/logo_dark.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://gamerpay.gg/sell"],
+      "js": ["assets/js/content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "assets/popup/index.html",
+    "scripts": [
+      "assets/popup/popup.js"]
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://gamerpay.gg/*"
+  ]
+}
