@@ -2,9 +2,6 @@
 var discount = 2.5
 // ----------------
 
-
-
-
 var css = '.bn37 {\n' +
     '  border-color: transparent;\n' +
     '  background-color: #fff;\n' +
@@ -25,7 +22,6 @@ if (style.styleSheet) {
 
 document.getElementsByTagName('head')[0].appendChild(style);
 
-
 const createButtonPriceItems = () => {
     const button = document.createElement('button')
     button.classList.add('bn37');
@@ -43,19 +39,18 @@ const createButtonPriceItems = () => {
     button.style.backfaceVisibility ='hidden'
     button.style.border = '0.3 rem solid transparent'
     button.style.borderRadius = '3rem'
-
     const buttonText = document.createTextNode('PRICE')
     button.appendChild(buttonText)
-
 
     return button
 }
 
-const createSwitchBargainBtns = () => {
+const createSellBtns = () => {
     const button = document.createElement('button')
     button.classList.add('bn37');
     button.style.margin = '10px'
     button.style.display = 'inline-flex'
+    button.style.backgroundColor ='#b82e69'
     button.style.alignItems = 'center'
     button.style.justifyContent = 'center'
     button.style.padding = '0.7rem 2rem'
@@ -68,16 +63,14 @@ const createSwitchBargainBtns = () => {
     button.style.backfaceVisibility ='hidden'
     button.style.border = '0.3 rem solid transparent'
     button.style.borderRadius = '3rem'
-
-    const buttonText = document.createTextNode('BARGAIN')
+    const buttonText = document.createTextNode('SELL')
     button.appendChild(buttonText)
+
     return button
 }
 
 const priceItemsBtn = createButtonPriceItems()
-const switchBargainBtn = createSwitchBargainBtns()
-
-
+const SellBtn = createSellBtns()
 
 const intFindPlaceForButtons = setInterval(async function() {
     const mainHeader = document.querySelector("#__next > div.Page_wrapper__0NhRM > div > div > div > header.TopBar_header__ZzGiD > nav > ul.TopBar_center__0j8va")
@@ -85,14 +78,17 @@ const intFindPlaceForButtons = setInterval(async function() {
     if (mainHeader) {
         clearInterval(intFindPlaceForButtons)
         mainHeader.appendChild(priceItemsBtn)
-        mainHeader.appendChild(switchBargainBtn)
+        mainHeader.appendChild(SellBtn)
 
         priceItemsBtn.addEventListener('click', function(){
-            // price the skins
+            let bragainBtns = document.getElementsByClassName('Switch_button__WH3nW')
+            for (let i = 0; i < bragainBtns.length;i++){
+                bragainBtns[i].click()
+            }
                let skins = []
                let nodes = document.getElementsByClassName('ItemCardNew_wrapper__phLcV')
 
-               for (i = 0; i<nodes.length;i++){
+               for (i = 0; i < nodes.length;i++){
                    if(!nodes[i].innerText == ''){
                        skins.push(nodes[i])
                    }
@@ -108,16 +104,21 @@ const intFindPlaceForButtons = setInterval(async function() {
 
                    inputs[0].value = newPrice
                }
-
         })
 
-        switchBargainBtn.addEventListener('click', function(){
-            // switch the bargain btns
-            let bragainBtns = document.getElementsByClassName('Switch_button__WH3nW')
-            for (let i = 0; i < bragainBtns.length;i++){
-                bragainBtns[i].click()
+        SellBtn.addEventListener('click', function(){
+            let skins = []
+            let nodes = document.getElementsByClassName('ItemCardNew_wrapper__phLcV')
+
+            for (i = 0; i < nodes.length;i++){
+                if(!nodes[i].innerText == ''){
+                    skins.push(nodes[i])
+                }
+            }
+
+            for (let i = 0; i < skins.length; i++) {
+               skins[i].getElementsByClassName('ItemCardNew_editButton__O_TL0')[0].click()
             }
         })
     }
 }, 50)
-
